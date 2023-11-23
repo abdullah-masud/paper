@@ -1,0 +1,290 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Explainable Models to Interpret Malware Detection Using Agnostic Method\\
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Abdulla Al Masud}
+\IEEEauthorblockA{\textit{Computer Science \& Engineering} \\
+\textit{East Delta University}\\
+Chittagong, Bangladesh \\
+masudctg00@gmail.com}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Anas Bin Abdullah}
+\IEEEauthorblockA{\textit{Computer Science \& Engineering} \\
+\textit{East Delta University}\\
+Chittagong, Bangladesh \\
+anasbinabdullah1998@gmail.com}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Linkon Chodhury}
+\IEEEauthorblockA{\textit{Computer Science \& Engineering} \\
+\textit{East Delta University}\\
+Chittagong, Bangladesh \\
+linkon.c@eastdelta.edu.bd}
+\and
+}
+
+\maketitle
+
+\begin{abstract}
+Malware threats have been increasing very rapidly in today's world. Since everyone uses the internet in the modern world, users are more vulnerable to cyberattacks. Traditional methods are not capable of finding the malware accurately so this research focuses on building an effective solution using Machine Learning to detect malicious software and interpret the model using 
+Explainable AI to understand why a certain decision was made by the ML classifier. The dataset is preprocessed in several steps which includes Min-Max Scalar for Feature Scaling, Minimum Redundancy Maximum Relevancy (MRMR) for Feature Selection, and Principal Component Analysis (PCA) for Dimensionality Reduction. Then, the algorithms are trained using multiple machine learning algorithms such as Naive Bayes, AdaBoost, Logistic Regression, Decision Tree, Random Forest, Long Short-Term Memory (LSTM) and XGBoost. Among all the classifiers, we achieved the highest accuracy of 99.825 with XGBoost. Additionally, for model interpretability, we have used Explainable AI methods such as LIME and SHAP, to understand which feature was responsible for the instance being Malware or Benign.
+\vspace{1em}
+\end{abstract}
+
+% Redefine \IEEEkeywordsname to change "Index Terms" to "Keywords"
+\renewcommand\IEEEkeywordsname{Keywords}
+\begin{IEEEkeywords}
+Machine-Learning, Cybersecurity, Malware, Benign, Explainable AI, LIME, SHAP
+\end{IEEEkeywords}
+
+
+\section{Introduction}
+Cybersecurity is a set of technologies that are used for protecting cyberspace from cyber criminals. Malicious software also known as Malware is a software file that causes harm to a computer system [1]. It penetrates through the computer and steals sensitive information of the user. Various types of malware can cause harm to the computer system in different ways. Since everyone uses the internet in the modern world, users are more vulnerable to cyberattacks. Traditional methods are  not capable of finding the malware accurately. So, this research is about detecting Malware using Machine Learning Algorithms.
+
+\vspace{1em}
+In the modern world, Information and Data have become valuable assets for everyone. As they are of paramount importance to people, keeping this information safe has become necessary and a top priority. Malware or malicious software refers to any program that is intended to cause harm to computer systems, servers, or networks. It can affect the computer in various ways. It can crack weak passwords, penetrate systems deeply, spread through networks, and hamper an organization's operations. Moreover, malicious software can harm important files, attack multiple ads, slow down computer systems, or redirect you to malicious websites.
+
+\vspace{1em}
+Since everyone has access to the internet nowadays, the chance of cyberattacks also increases. Many people and organizations are suffering from this malicious threat. Due to this threat, it has become very hard to keep important information safe from attackers. Around 66\% of the world's population uses the Internet daily [2]. After 2017, the number of internet users increased by 81\% and it keeps increasing day by day [3]. This made the user more vulnerable to potential attackers. The main motivation for doing this research is the increase of malware threat that causes harm to the computer which can seriously damage the valuable information of the users. The increase in cyberattacks shows the urgency to make our system more secure against harmful software. In this paper, we have shown some  machine-learning algorithms that work better in detecting malicious software.
+
+\vspace{1em}
+The primary goal of this research paper is to improve the detection of malicious software using multiple machine-learning techniques. We aim to achieve some specific goals through our model. Firstly, we focus on understanding the effect of malware on computer systems. Secondly, we analyze the effectiveness of the machine learning models. Lastly, we evaluate the performance of the models and see which models work best in detecting malicious software. Additionally, we implement LIME and SHAP to provide explanations for the machine learning model.
+
+\vspace{1em}
+Our paper is designed in several sections where each section serves different purpose. Section II briefly explains the related work and studies that were done previously on this topic. In Section III, we cover the architecture and methodology of our research. The model's accuracy and results were laid out in section IV. Lastly, Section V, we summarize the entire research and outline the future scope.
+
+\vspace{1em}
+\section{Related Literature}
+
+Sharma, Mishra, Singh, Govil, Srivastava, and Lin [4] investigated the use of Machine Learning (ML) in cybersecurity. They found out that ML can be like a "black box," making it hard to understand why a certain decision was made by the classifier. To address this, they explored Explainable AI, a method to clarify errors in the system. Their approach effectively explains mistakes, works with various classifiers without major modifications, and achieves an impressive classification accuracy of over 95\% in experiments, improving transparency and performance in ML-based cybersecurity.
+
+\vspace{1em}
+Feng and Shoaib [5] explored the difficulties and limitations of the traditional technique of detecting malware. The study suggested to combine theory with practical tests to improve the accuracy of detecting malicious software. Three machine-learning approaches were implemented - Decision Trees, Convolutional Neural Networks, and Support Vector Machines. Their results were (DT) 99\%, (CNN) 98.6\%, and (SVM) 96.41\% respectively in detecting malware.Among all the classifier, Decision Tree was more accurate at finding harmful files.
+
+\vspace{1em}
+According to [6], another study was done with the "Microsoft Malware Challenge dataset" [7] which has over 20,000 samples of malware. The objective of this study was to deal with mutative malware that is hard to detect. The study focuses on finding how each malware is unique from one another and then making them into a group based on their characteristics. After grouping the malware, the researchers merged them based on their characteristics using a programming technique. After testing their method on the "Microsoft Malware Challenge dataset", the results were very good, giving them an accuracy of 97.8\%. This shows that their approach to detecting mutative malware was effective.
+
+\vspace{1em}
+Jinsoo Hwang, Jeankyung Kim, Seunghwan Lee, and Kichang Kim [8] introduced a solution to the increasing difficulties of finding ransomware. Ransomware is a type of harmful software that has become very difficult to detect due to its strong encryption algorithms. The authors proposed a two-stage model to detect ransomware that merges the Markov model and the Random Forest machine learning model. The first stage analyzes the sequence of Windows API using the Markov model. Then, a Random Forest model is used to evaluate the remaining data and analyze false positives and false negatives. The results of this approach are very good, giving them an accuracy of 97.3\% while maintaining a low false positive rate of 4.8\% and a false negative rate of 1.5\%. The results show that their approach to detecting ransomware was effective.
+
+\vspace{1em}
+According to Sanjay Sharma, C. Rama Krishna, and Sanjay K. Sahay [9], the current method of detecting complex unknown malware using anti-malware tools is difficult because of the "code 8 obfuscation technique". This method makes the malware code difficult to analyze. To solve this issue, the authors proposed an approach using opcode occurrence to improve malware detection accuracy. They used the Fisher Score technique to find important features and implemented five machine learning algorithms, which are Random Forest, LMT, J48 Graft, and NBT. They achieved very good accuracy in finding the malware.
+
+\vspace{1em}
+Muhammad Shoaib Akhtar and Tao Feng [10], addressed the important problem of detecting malware by using a combined approach called CNN-LSTM. The objective is to solve the limitations of existing algorithms. CNN-LSTM performed very well at detecting malware, achieving an accuracy of 97\% which is better than other algorithms like Decision Tree (98\%) and Support Vector Machine (95\%).
+
+\section{Methodology}
+The proposed model architecture is given in Fig. 1. First, the dataset is preprocessed in several steps, which include Min-Max Scalar, (Maximum Relevance Minimum Redundancy) MRMR, and (Principal Component Analysis) PCA. Then, the dataset is split into two parts, where 80\% of the data is used for training and 20\% for testing. Additionally, machine learning models are used to train the model and evaluate the test data. Lastly, to interpret the outcome of the model, we use explainable AI tools like LIME and SHAP for understanding the decisions made by the classifier.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=1\linewidth]{system-architecture.png}}
+\caption{Model Architecture.}
+\label{fig}
+\end{figure}
+
+
+\subsection{Data Collection}\label{AA}
+The dataset used in this study is "Malware dataset" [11] which contains 100,000 data samples where half of the data is malware, and the other half is benign files. It has 33 features to learn whether the specific file is malicious or non-malicious.
+
+\subsection{Preprocessing}\label{AA}
+For preprocessing, we implemented three key steps, which are as follows: 
+
+\subsubsection{Feature Scaling}\label{AB}              
+For feature scaling, we applied the MinMax Scaler technique which transforms each feature
+individually into a specific range, between 0 and 1 [12]. This process helps to optimize and
+improve the performance of the model.
+
+
+\subsubsection{Feature Selection}\label{AB} 
+For feature selection, we applied the MRMR (Maximum Relevancy Minimum Redundancy)
+technique, which is used to select the most important features from the dataset that are highly
+relevant to the target variable while avoiding redundancy between the features [13]. This helps
+avoid similar features making the model more efficient.
+
+\subsubsection{Dimensionality reduction}\label{AB}
+For Dimensionality reduction, we applied PCA (Principal component analysis) which is a dimensionality reduction technique, that is used to transform a high-dimensional dataset into a lower-dimensional dataset while keeping the most important information possible [24]. This makes the data simpler and improves model performance.
+
+\subsection{Data Splitting}\label{AA}
+After preprocessing, the dataset is split into two parts, one is for training (80\%) and the other part is for testing (20\%) the model. The training set consists of 80,000 instances, and testing set consists of 20,000 instances. 
+
+\subsection{Classification Models}\label{AA}
+In this research multiple machine-learning algorithms are implemented for data training. The algorithms are Naive Bayes classifier, Random Forest, Logistic Regression, Decision Tree, AdaBoost, LSTM and XGBoost. Now, let's understand how these algorithms perform in our model.
+
+\subsubsection{Naïve Bayes Classifier}\label{AB}  
+Naïve Bayes is a supervised Machine-Learning algorithm, which is a probabilistic classifier that predicts based on the probability of the tuples. In our Malware detection model, the classifier works by calculating the probability that a file is either benign or malware based on the features. The classifier then makes predictions based on the probabilities.
+\begin{equation}
+P(A|B) = \frac{P(B|A)P(A)}{P(B)}\label{eq}
+\end{equation}
+
+\vspace{1em}
+\subsubsection{LSTM}\label{AB}  
+LSTM stands for Long Short-Term Memory is a specific type of recurrent neural network used to design and analyze sequential data. LSTM can store important information from earlier sequences and use it to make decisions in determining whether the file is malicious or non-
+malicious. According to our model, LSTM learns from unique behaviours and patterns that help in identifying malware or benign.
+
+\subsubsection{Random Forest}\label{AB}  
+A random forest is a classifier that consists of a collection of decision trees to make predictions. In our model, each decision tree votes whether the file is malicious or not. Based on the average vote, the classifier makes its prediction.
+
+\subsubsection{Decision Tree}\label{AB}
+A Decision Tree is a tree-structured classifier, where each “branch” of the tree represents a decision and each “leaf” represents an outcome or prediction. In our model, the decision tree would look at a feature and go down the branch to decide whether the file is malicious or non-malicious.
+\subsubsection{AdaBoost}\label{AB}
+AdaBoost is an Ensemble machine-learning algorithm, which iteratively trains the weak classifier in the dataset and focuses on improving the mistakes made by the previous classifier. In our model, AdaBoost chooses a classifier and trains them one by one. Finally combines the weak classifier to predict whether the file is malicious or non-malicious.
+
+\subsubsection{Logistic Regression}\label{AB}
+Logistic Regression is mainly used for a classification task that works by predicting whether the instance belongs to a specific class. In our model, LR works by learning the features of the software and it tries to identify whether it is malicious or not.
+
+\subsubsection{XGBoost}\label{AB}
+
+XGBoost stands for Extreme Gradient Boosting is a machine learning algorithm that is capable of handling massive datasets. It is applicable for both regression and classification. In our model, XGBoost works by combining multiple weaker models leading to a powerful overall model which makes the model effective in identifying malware.
+
+\subsection{Explainable AI for Model Interpretability}\label{AA}
+After training our model using machine learning algorithms, we evaluated the results and the classifier performed very well. Now, to understand which feature was responsible for the model's decision, we used a special technique called Explainable AI. It is a field of study that focuses on developing methods to explain the predictions of machine learning models. Fig. 2 illustrates that ML models are often considered "black-box" models where we generally train our data and evaluate the result. To address this limitation and bring transparency to our machine learning models, we've introduced the field of Explainable AI (XAI).
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=1\linewidth]{exai.png}}
+\caption{Importance of Explainable AI}
+\label{fig}
+\end{figure}
+
+We employed two explainable AI technique which is LIME \& SHAP to understand why a certain decision was made. With the help of this technique, we can see why the model predicted the data as malicious or non-malicious.
+\vspace{1em}
+\subsubsection{LIME}\label{AB}
+LIME stands for Local Interpretable Model-agnostic Explanations which is a technique to understand why a certain decision was made by the classifier. It explains individual predictions for specific instances. First, LIME selects an instance to explain, then it creates modified versions of the instance with slight changes. ML models were used to predict the modified instances. Lastly, use the model to explain why a certain decision was made by the classifier. In our model, LIME helps to understand which feature was responsible for the prediction to be malware or benign.
+
+\subsubsection{SHAP}\label{AB}
+SHAP stands for Shapley Additive Explanations, is an explainable AI technique designed to offers global understanding of each feature across all instances.SHAP assigns a SHAP value to each feature in a Machine Learning model's prediction. It then calculates the Shapley values for each feature. It uses the complex machine learning model to predict instances globally facilitating the understanding of the importance of each feature in the model's decision-making process
+
+\vspace{1em}
+\section{Result Analysis}
+
+In this section, we analyze the results achieved from the malware detection model. The dataset is trained using multiple Machine learning algorithms which are Naïve Bayes, Adaboost, Logistic Regression, Random Forest, Decision Tree, Long Short-Term Memory (LSTM), and Extreme Gradient Boosting (XGBoost). 
+
+\subsection{Classification Report}\label{AA}
+Table 1 shows the  classification report and accuracy metrics of the model. The highest accuracy is achieved by the XGBoost model of about 99.825\%. 
+
+\documentclass{}
+\usepackage{}
+\begin{document}
+\begin{table}[htbp]
+\caption{Classification Report}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\cline{2-6} 
+\textbf{Classifier} & \textbf{\textit{Class}}& \textbf{\textit{Precision}}& \textbf{\textit{Recall}} & \textbf{\textit{F-1 Score}} & \textbf{\textit{Accuracy}} \\
+\hline
+\multirow{NB } & Benign$^{\mathrm{}}$ & 0.80& 0.81 &0.80 &80.21\% \\
+\cline{2-5}
+& Malware &0.81 & 0.79 & 0.80 & \\
+\hline
+\multirow{AdaBoost} & Benign$^{\mathrm{}}$ & 0.82 & 0.90 & 0.86 & 85.015\% \\
+\cline{2-5}
+& Malware & 0.88 & 0.80 & 0.84 & \\
+\hline
+\multirow{LR} & Benign$^{\mathrm{}}$ & 0.89 & 0.86 & 0.87 & 87.315\% \\
+\cline{2-5}
+& Malware & 0.86 & 0.89 & 0.87 & \\
+\hline
+\multirow{DT} & Benign$^{\mathrm{}}$ & 0.91 & 0.93 & 0.92 & 91.76\% \\
+\cline{2-5}
+& Malware & 0.93 & 0.91 & 0.92 & \\
+\hline
+\multirow{RF } & Benign$^{\mathrm{}}$ & 0.93 & 0.99 & 0.96 & 95.5\% \\
+\cline{2-5}
+& Malware & 0.99 & 0.92 & 0.95 & \\
+\hline
+\multirow{LSTM} & Benign$^{\mathrm{}}$ & 0.998 & 0.997 & 0.998 & 97.28\% \\
+\cline{2-5}
+& Malware & 0.997 & 0.997 & 0.998 & \\
+\hline
+\multirow{XGBooost} & Benign$^{\mathrm{}}$ & 0.998 & 0.997 & 0.998 & 99.825\% \\
+\cline{2-5}
+& Malware & 0.997 & 0.997 & 0.998 & \\
+\hline
+\end{tabular}
+\label{tab1}
+\end{center}
+\end{table}
+
+The highest accuracy is achieved by the XGBoost model of about 99.825\%. Thus, the model is very effective at finding malicious software.
+
+\subsection{ROC Curve}\label{AA}
+Fig. 2 shows the combined ROC curve of all the classifier where the y-axis is True Positive Rate and the x-axis is False Positive Rate.
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=1\linewidth]{ROC-Combined.png}}
+\caption{Combined ROC Curve}
+\label{fig}
+\end{figure}
+
+The highest area under the curve is achieved by the XGBoost model of about 0.9722. Thus, it shows that the classifier is better at distinguishing between the two classes.
+
+\subsection{Model Interpretable using Explainable AI}\label{AA}
+To get the transparency of the model, we implemented xAI technique like LIME and SHAP. This helps us to indentify  which features was responsible for a certain instance to be malware or benign.
+
+\subsubsection{LIME Results}\label{AB}
+
+In this research we have achieved  the highest accuracy for XGBoost of about 99.825\%. Therefore, LIME outcome shows the detailed insights of the prediction. In  the “feature-value” table, the top feature is the most important in contributing to the outcome of the prediction. Based on the feature values, we can visually understand which feature is responsible for Malware or Benign. 
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=1\linewidth]{Lime(Benign).png}}
+\caption{Lime Outcome Observation 1}
+\label{fig}
+\end{figure}
+
+Figure 4 illustrates the LIME analysis on a specific observation from our model, predicting a probability of 0.99 for the instance to be benign and 0.01 for it to be malware. The analysis highlights in this observation that all the features were responsible for the instance to be benign.
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=1\linewidth]{Lime(Malware).png}}
+\caption{Lime Outcome Observation 2}
+\label{fig}
+\end{figure}
+
+Figure 5 illustrates the LIME analysis on a specific observation from our model, predicting a probability of 0.98 for the instance to be malware and 0.02 for it to be benign. The analysis highlights in this observation that the features static\_prio,state,normal\_prio and prio were responsible for the instance to be malware and millisecond and usage\_counter were responsible for the instance to be benign. 
+\vspace{1em}
+\subsubsection{SHAP Results}\label{AB}
+In this research we have achieved  the highest accuracy for XGBoost of about 99.825\% .Thus,the SHAP Explainer for XGBoosst  provides a global understanding of each feature across all instances. By calculating the SHAP values, the model finds out the influence of each feature in making the prediction. This helps us understand which data was responsible for classifying an instance as malware or benign.
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=1\linewidth]{Shap2.png}}
+\caption{SHAP Outcome Observation}
+\label{fig}
+\end{figure}
+
+In Fig. 6  we can see the effect of all the features across all instances. On the y axis we have the important features on descending order and on the x axis we have the SHAP values. Here every dot represents one instance. A positive SHAP value for a feature means that it is contributing more to the model's prediction output, and a negative SHAP value means that the feature is contributing less to the model's prediction output.
+
+\vspace{1em}
+\section{Conclusion and Future Research}
+In short, we showed the possibility of finding malware effectively and using Explainable AI method, we gained the insights of the model's prediction. This allows us to understand why a certain decision was made by the classifier. Among all the classifiers, we achieved the highest accuracy of 99.825 with XGBoost. The goal of this research was to build an effective solution to identify malicious software. 
+
+\vspace{1em}
+In our research, there are some limitations. Especially, to detect malware in real time. Future work can focus on executing this real-time malware detection since the growth of malware is increasing rapidly. Furthermore, the use of semi-supervised and unsupervised learning techniques could potentially unlock the ability to detect unseen types of malwares.
+
+\vspace{1em}
+\begin{thebibliography}{00}
+\bibitem{b1} “Margaret Rouse, Author at Techopedia.” Accessed: Aug. 19, 2023. [Online]. Available: https://www.techopedia.com/contributors/margaret-rouse.
+\bibitem{b2} Anon, “Facts and Figures 2022.” Accessed: Aug. 19, 2023. [Online]. Available: : www.itu.int. https://www.itu.int/itu-d/reports/statistics/facts-figures-2022/.
+\bibitem{b3} B. Sanou, “ICT Facts and Figures 2017,” ITU. [Online]. Available: https://www.itu.int/en/ITU-D/Statistics/Pages/facts/default.aspx.
+\bibitem{b4} D. K. Sharma, J. Mishra, A. Singh, R. Govil, G. Srivastava, and J. C. W. Lin, “Explainable Artificial Intelligence for Cybersecurity,” Computers and Electrical Engineering, vol. 103, p. 108356, Oct. 2022, doi: 10.1016/J.COMPELECENG.2022.108356.
+\bibitem{b5} M. S. Akhtar and T. Feng, “Malware Analysis and Detection Using Machine Learning Algorithms,” Symmetry 2022, Vol. 14, Page 2304, vol. 14, no. 11, p. 2304, Nov. 2022, doi: 10.3390/SYM14112304.
+\bibitem{b6} M. Ahmadi, D. Ulyanov, S. Semenov, M. Trofimov, and G. Giacinto, “Novel feature extraction, selection and fusion for effective malware family classification,” CODASPY 2016 - Proceedings of the 6th ACM Conference on Data and Application Security and Privacy, pp. 183–194, Mar. 2016, doi: 10.1145/2857705.2857713.
+\bibitem{b7} “Microsoft Malware Classification Challenge (BIG 2015)|Kaggle.” Accessed: Aug. 19, 2023. [Online]. Available: https://www.kaggle.com/c/malware-classification.
+\bibitem{b7} J. Hwang, J. Kim, S. Lee, and K. Kim, “Two-Stage Ransomware Detection Using Dynamic Analysis and Machine Learning Techniques,” Wirel Pers Commun, vol. 112, no. 4, pp. 2597–2609, Jun. 2020, doi: 10.1007/S11277-020-07166-9/METRICS.
+\bibitem{b7} S. Sharma et al., “Detection of Advanced Malware by Machine Learning Techniques Static code analysis to detect advanced malwares View project Working on Cloud Computing View project Detection of Advanced Malware by Machine Learning Techniques,” 2019. [Online]. Available: https://www.researchgate.net/publication/331587618.
+\bibitem{b7} M. S. Akhtar and T. Feng, “Detection of Malware by Deep Learning as CNN-LSTM Machine Learning Techniques in Real Time,” Symmetry (Basel), vol. 14, no. 11, Nov. 2022, doi: 10.3390/SYM14112308.
+\bibitem{b7} “Kaggle.” [Online]. Available: https://www.kaggle.com/code/
+adepvenugopal/malware-datasets/input?select=Malware+dataset.csv
+\bibitem{b7} “sklearn.preprocessing.MinMaxScaler — scikit-learn 1.3.0 documentation.” Accessed: Aug. 23, 2023. [Online]. Available: https://scikit-learn.org/ stable/ modules/ generated/ sklearn.preprocessing.MinMaxScaler.html
+\bibitem{b7} M. Radovic, M. Ghalwash, N. Filipovic, and Z. Obradovic, “Minimum redundancy maximum relevance feature selection approach for temporal gene expression data,” BMC Bioinformatics, vol. 18, no. 1, pp. 1–14, Jan. 2017, doi: 10.1186/S12859-016-1423-9/FIGURES/6.
+\bibitem{b7} Jaadi Zakaria, “Principal Component Analysis (PCA) Explained | Built In.” Accessed: Aug. 23, 2023. [Online]. Available: https://builtin.com/data-science/step-step-explanation-principal-component-analysis
+
+\end{thebibliography}
+
+\end{document}
+
